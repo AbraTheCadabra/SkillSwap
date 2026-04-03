@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/design_default_color_background"
+    android:id="@+id/nav_account">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Account"
+        android:textSize="24sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_margin="5dp"
+        />
+
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/def_profile"
+        android:layout_gravity="center"
+        android:layout_margin="12dp" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="JANE DOE"
+        android:fontFamily="@font/montserrat_bold"
+        android:padding="5dp"
+        android:gravity="center"
+        android:textSize="24dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/profile_btn"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded"
+        android:text="Profile"
+        android:gravity="center"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:drawableLeft="@drawable/account_icon"
+        android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+        android:textColor="@color/btn_font"
+        android:fontFamily="@font/montserrat_bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/listings_btn"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded"
+        android:text="My Listings"
+        android:gravity="center"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:drawableLeft="@drawable/star_icon"
+        android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+        android:textColor="@color/btn_font"
+        android:fontFamily="@font/montserrat_bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/settings_btn"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded"
+        android:text="Settings"
+        android:gravity="center"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:drawableLeft="@drawable/settings_icon"
+        android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+        android:textColor="@color/btn_font"
+        android:fontFamily="@font/montserrat_bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/support_btn"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded"
+        android:text="Help and Support"
+        android:gravity="center"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:drawableLeft="@drawable/support_icon"
+        android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
+        android:textColor="@color/btn_font"
+        android:fontFamily="@font/montserrat_bold" />
+
+
+
+
+
+
+
+</LinearLayout>

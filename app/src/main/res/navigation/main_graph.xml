@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/nav_chats">
+
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.samsungit.skillswap.AccountFragment"
+        android:label="AccountFragment"
+        tools:layout="@layout/account_fragment"
+        />
+    <fragment
+        android:id="@+id/nav_chats"
+        android:name="com.samsungit.skillswap.ChatsFragment"
+        android:label="ChatsFragment"
+        tools:layout="@layout/chats_fragment"
+        />
+    <fragment
+        android:id="@+id/nav_listings"
+        android:name="com.samsungit.skillswap.ListingsFragment"
+        android:label="ListingsFragment"
+        tools:layout="@layout/listings_fragment"
+        />
+</navigation>
