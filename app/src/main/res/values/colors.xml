@@ -7,4 +7,6 @@
     <color name="btn_font">#636262</color>
     <color name="skills_bg">#E5E5EA</color>
     <color name="selected_color">#757575</color>
+    <color name="my_msg_clr">#89E219</color>
+    <color name="other_msg_clr">#F5F5F5</color>
 </resources>
