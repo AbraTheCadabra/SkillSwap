@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:layout_height="300dp"
+    android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    android:background="@drawable/listing_rounded">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/lis_profile_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="100dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/def_profile" />
+        </androidx.cardview.widget.CardView>
+
+
+
+        <TextView
+            android:id="@+id/lis_profile_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center_vertical"
+            android:text="JOHN DOE"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lis_profile_pic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cell_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/monsterrat_reg"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt..."
+            app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lis_profile_pic"
+            app:layout_constraintTop_toBottomOf="@+id/lis_profile_name" />
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/listing_skill_rounded"
+            android:columnCount="3"
+            android:rowCount="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lis_profile_pic">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/can_teach"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="@integer/material_motion_duration_short_1"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="CAN TEACH:"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <GridLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    android:columnCount="2"
+                    android:rowCount="4">
+                    <androidx.cardview.widget.CardView
+
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        android:textAlignment="center"
+                        android:layout_width="65dp"
+                        android:layout_height="19dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="CODING"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:background="@color/green"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        android:textAlignment="center"
+                        android:layout_width="65dp"
+                        android:layout_height="19dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="CODING"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:background="@color/green"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        android:textAlignment="center"
+                        android:layout_width="65dp"
+                        android:layout_height="19dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="CODING"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:background="@color/green"/>
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </GridLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:src="@drawable/swap_icon" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/wants_to_learn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="@integer/material_motion_duration_short_1"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="WANTS TO LEARN:"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <GridLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    android:columnCount="2"
+                    android:rowCount="4">
+                    <androidx.cardview.widget.CardView
+
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        android:textAlignment="center"
+                        android:layout_width="65dp"
+                        android:layout_height="19dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="CODING"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:background="@color/green"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        android:textAlignment="center"
+                        android:layout_width="65dp"
+                        android:layout_height="19dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="CODING"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:background="@color/green"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        android:textAlignment="center"
+                        android:layout_width="65dp"
+                        android:layout_height="19dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="CODING"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:background="@color/green"/>
+                    </androidx.cardview.widget.CardView>
+                </GridLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,4 @@
-package com.samsungit.sqlitedb.domain;
-
-import com.samsungit.skillswap.domain.Message;
+package com.samsungit.skillswap.domain;
 
 import java.util.List;
 import java.util.Objects;

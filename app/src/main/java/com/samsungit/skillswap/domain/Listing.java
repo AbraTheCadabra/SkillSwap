@@ -7,5 +7,29 @@ public class Listing {
     private String[] canTeach;
     private String[] wantsToLearn;
 
+    public Listing(long id, User creator, String description) {
+        this.id = id;
+        this.creator = creator;
+        Description = description;
+    }
 
+    public long getId() {
+        return id;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public String[] getCanTeach() {
+        return canTeach;
+    }
+
+    public String[] getWantsToLearn() {
+        return wantsToLearn;
+    }
 }
