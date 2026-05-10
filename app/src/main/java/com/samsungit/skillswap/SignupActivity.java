@@ -8,11 +8,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.samsungit.skillswap.helper.EmailStringHelper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     EditText first_name, last_name, email, password;
@@ -62,8 +71,50 @@ public class SignupActivity extends AppCompatActivity {
         // instantiate the request queue:
         RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
+        // the url we're POSTing to:
+        String url = "http://192.168.88.16:9080/api/user/register"; // !!!!! IP MATTERS, LOCALHOST DOESN'T WORK !!!!
+        // TODO: REMEMBER THIS FOR WHEN YOU'RE GOING TO MAKE LISTINGS AND CHATS:
+        // JSONOBJECTREQUEST, JSONARRAYREQUEST
 
-        Toast.makeText(SignupActivity.this, "Registration successful!", Toast.LENGTH_LONG).show();
+        // String Request Object:
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (response.equalsIgnoreCase("success")) {
+                    first_name.setText(null);
+                    last_name.setText(null);
+                    email.setText(null);
+                    password.setText(null);
+
+                    Toast.makeText(SignupActivity.this, "Registration successful!", Toast.LENGTH_LONG).show();
+                }
+                // end of response If block
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                System.out.println(error.getMessage());
+                Toast.makeText(SignupActivity.this, "Registration unsuccessful.", Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", first_name.getText().toString()); // TODO: rename name to first_name
+                params.put("last_name", last_name.getText().toString());
+                params.put("email", email.getText().toString());
+                params.put("password", password.getText().toString());
+
+                return params;
+            }
+        }; // end of string request object
+
+
+        queue.add(stringRequest); // !!!
     }
 
     // validate first name
