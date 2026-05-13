@@ -97,6 +97,7 @@ public class ListingsFragment extends Fragment {
         });
 
 
+
         // setUpListingData();
         setUpList(view);
         // setUpOnClickListener();
