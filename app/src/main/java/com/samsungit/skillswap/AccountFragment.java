@@ -12,11 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AccountFragment extends Fragment {
 
     TextView username, email;
     AppCompatButton logout_btn;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @Nullable
     @Override
@@ -31,56 +40,61 @@ public class AccountFragment extends Fragment {
                 false
         );
 
+        auth = FirebaseAuth.getInstance();
 
-        // text view objects:
         username = view.findViewById(R.id.user_name);
         email = view.findViewById(R.id.email_acc);
 
+        user = auth.getCurrentUser();
 
-        // print user data
-        SharedPreferences prefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        if (user == null) {
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            startActivity(intent);
+        }
 
-        String first_name = prefs.getString("first_name", "John");
-        String last_name = prefs.getString("last_name", "Doe");
-        String emailTxt = prefs.getString("email", "johndoe@email.com");
 
-        username.setText(first_name + " " + last_name);
-        email.setText(emailTxt);
+        username.setText(user.getDisplayName());
+        email.setText(user.getEmail());
 
-        // Log Out button:
+
+        // volley old
+//        SharedPreferences prefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+//
+//        String first_name = prefs.getString("first_name", "John");
+//        String last_name = prefs.getString("last_name", "Doe");
+//        String emailTxt = prefs.getString("email", "johndoe@email.com");
+//
+//        username.setText(first_name + " " + last_name);
+//        email.setText(emailTxt);
+//
+
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
+//        db.child("listings")
+//                .child("testItem")
+//                .setValue("hello");
+
         logout_btn = view.findViewById(R.id.logout_btn);
 
-        // Log Out button functionality:
+
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logUserOut();
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                startActivity(intent);
             }
         });
 
+        AppCompatButton myListingsBtn = view.findViewById(R.id.my_listings_btn);
+
+
+        myListingsBtn.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(requireView());
+            navController.navigate(R.id.myListingsFragment);
+        });
+
         return view;
-    }
-    public void logUserOut() {
-        username.setText(null);
-        email.setText(null);
-
-        // bring user back to login screen
-
-        SharedPreferences prefs = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = prefs.edit();
-        // Remove saved Login data
-
-        editor.clear();
-        editor.apply();
-
-        // Open login screen
-        Intent intent = new Intent(requireActivity(), LoginActivity.class);
-
-        // Prevent user from going back
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-        startActivity(intent);
     }
 
 }

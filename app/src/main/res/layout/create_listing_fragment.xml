@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+
+
+    <TextView
+        android:id="@+id/create_new_listing_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create New Listing"
+        android:textSize="24sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_margin="5dp"
+        />
+
+    <EditText
+        android:id="@+id/listing_description_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Listing Description"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@id/create_new_listing_text"
+        />
+
+    <EditText
+        android:id="@+id/want_to_learn_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Want to learn (separate with ,)"
+        app:layout_constraintTop_toBottomOf="@+id/listing_description_et"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/can_teach_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Can teach (separate with ,)"
+        app:layout_constraintTop_toBottomOf="@+id/want_to_learn_et"
+        android:layout_margin="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/create_new_listing_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/can_teach_et"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_rounded"
+        android:text="CREATE NEW LISTING"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

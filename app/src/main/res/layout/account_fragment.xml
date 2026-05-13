@@ -60,7 +60,7 @@
         android:fontFamily="@font/montserrat_bold" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/listings_btn"
+        android:id="@+id/my_listings_btn"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

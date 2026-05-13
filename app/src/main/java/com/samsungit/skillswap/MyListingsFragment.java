@@ -1,20 +1,21 @@
 package com.samsungit.skillswap;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,35 +23,35 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.samsungit.skillswap.adapter.ListingAdapter;
 import com.samsungit.skillswap.domain.Listing;
-import com.samsungit.skillswap.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListingsFragment extends Fragment {
-    private ListView listView;
+public class MyListingsFragment extends Fragment {
     public static List<Listing> listings = new ArrayList<>();
-    Firebase myFirebase;
+    ListView myListings;
+    AppCompatButton createNewListingBtn;
     private ListingAdapter adapter;
+    FirebaseAuth mAuth;
+    public List<Listing> my_listings = new ArrayList<>();
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.my_listings_fragment, container, false);
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+        myListings = view.findViewById(R.id.my_listings_list);
 
-        View view = inflater.inflate(R.layout.listings_fragment, container, false);
+        my_listings.clear();
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("listings");
-
-        listings.clear();
-
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Listing listing = snapshot.getValue(Listing.class);
-                if (listing != null) {
-                    listings.add(listing);
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (listing != null && listing.getOpId().equals(user.getUid())) {
+                    my_listings.add(listing);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -77,7 +78,7 @@ public class ListingsFragment extends Fragment {
 
                 // remove the listing from the list
                 for (int i = 0; i < listings.size(); i++) {
-                    if (listings.get(i).getId() == removedListing.getId()) {
+                    if (listings.get(i).getId() == removedListing.getId()) {;
                         listings.remove(i);
                         adapter.notifyDataSetChanged();
                         break;
@@ -96,47 +97,26 @@ public class ListingsFragment extends Fragment {
             }
         });
 
+        createNewListingBtn = view.findViewById(R.id.create_listing_btn);
 
-        // setUpListingData();
+
+        createNewListingBtn.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(requireView());
+            navController.navigate(R.id.createListingFragment);
+        });
+
         setUpList(view);
-        // setUpOnClickListener();
 
         return view;
     }
 
-//    private void setUpListingData() {
-//        listings.add(new Listing(1, new User(1, "User", "John Doe"),
-//                "Need help with cooking"));
-//
-//        listings.add(new Listing(2, new User(2, "User", "Jane Doe"),
-//                "Need help with programming"));
-//        listings.add(new Listing(3, new User(3, "User", "Jane Doe"),
-//                "Need help with programming"));
-//        listings.add(new Listing(4, new User(4, "User", "Jane Doe"),
-//                "Need help with programming"));
-//    }
-
     private void setUpList(View view) {
-        listView = view.findViewById(R.id.listings_list_view);
+        myListings = view.findViewById(R.id.my_listings_list);
 
-        adapter = new ListingAdapter(getContext(), 1, listings);
+        adapter = new ListingAdapter(getContext(), 1, my_listings);
 
-        listView.setAdapter(adapter);
+        myListings.setAdapter(adapter);
 
 
-    }
-
-    private void setUpOnClickListener() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Listing selectedListing = (Listing) (listView.getItemAtPosition(position));
-
-                Intent showDetail = new Intent(getContext(), ListingDetail.class);
-                showDetail.putExtra("id", position);
-
-                startActivity(showDetail);
-            }
-        });
     }
 }

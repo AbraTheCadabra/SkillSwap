@@ -38,6 +38,6 @@ public class ListingDetail extends AppCompatActivity {
 
 
         description.setText(selectedListing.getDescription());
-        name.setText(selectedListing.getCreator().getName());
+        // name.setText(selectedListing.getCreator().getName());
     }
 }
