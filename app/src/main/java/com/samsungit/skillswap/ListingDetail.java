@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.samsungit.skillswap.domain.Listing;
 
 public class ListingDetail extends AppCompatActivity {
+
+    // TODO: integrate this properly
     Listing selectedListing;
 
     @Override

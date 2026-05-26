@@ -1,56 +1,42 @@
 package com.samsungit.skillswap.domain;
 
 import java.sql.Timestamp;
-import java.util.Objects;
 
 public class Message {
-    private long id;
-    private String text;
-    private long userIdSender;
-    private Timestamp timeSent;
+    private String message;
+    private String senderId;
+    private long timestamp;
 
-    public Message(long id, String text, long user_id_sender, Timestamp time_sent) {
-        this.id = id;
-        this.text = text;
-        this.userIdSender = user_id_sender;
-        this.timeSent = time_sent;
+    public Message() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Message message = (Message) o;
-        return id == message.id && userIdSender == message.userIdSender && Objects.equals(text, message.text) && Objects.equals(timeSent, message.timeSent);
+    public Message(String message, String senderId, long timestamp) {
+        this.message = message;
+        this.senderId = senderId;
+        this.timestamp = timestamp;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, text, userIdSender, timeSent);
+    public String getMessage() {
+        return message;
     }
 
-    @Override
-    public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", user_id_sender=" + userIdSender +
-                ", time_sent=" + timeSent +
-                '}';
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public long getId() {
-        return id;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public String getText() {
-        return text;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public long getUserIdSender() {
-        return userIdSender;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public Timestamp getTimeSent() {
-        return timeSent;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

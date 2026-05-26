@@ -20,13 +20,21 @@
         android:name="com.samsungit.skillswap.ChatsFragment"
         android:label="ChatsFragment"
         tools:layout="@layout/chats_fragment"
-        />
+        >
+        <action
+            android:id="@+id/action_nav_chats_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_listings"
         android:name="com.samsungit.skillswap.ListingsFragment"
         android:label="ListingsFragment"
         tools:layout="@layout/listings_fragment"
-        />
+        >
+        <action
+            android:id="@+id/action_nav_listings_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myListingsFragment"
         android:name="com.samsungit.skillswap.MyListingsFragment"
@@ -45,5 +53,16 @@
         <action
             android:id="@+id/action_createListingFragment_to_myListingsFragment"
             app:destination="@id/myListingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.samsungit.skillswap.ChatFragment"
+        android:label="ChatFragment" >
+        <action
+            android:id="@+id/action_chatFragment_to_nav_listings"
+            app:destination="@id/nav_listings" />
+        <action
+            android:id="@+id/action_chatFragment_to_nav_chats"
+            app:destination="@id/nav_chats" />
     </fragment>
 </navigation>

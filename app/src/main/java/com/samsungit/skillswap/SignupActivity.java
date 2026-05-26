@@ -2,7 +2,6 @@ package com.samsungit.skillswap;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,9 +26,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.samsungit.skillswap.helper.EmailStringHelper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
@@ -77,12 +79,12 @@ public class SignupActivity extends AppCompatActivity {
                 email_txt = email.getText().toString();
                 password_txt = password.getText().toString();
 
-                if (TextUtils.isEmpty(email_txt)) {
+                if (email_txt.isEmpty()) {
                     email.setError("Email cannot be empty!");
                     return;
                 }
 
-                if (TextUtils.isEmpty(password_txt)) {
+                if (password_txt.isEmpty()) {
                     password.setError("Password cannot be empty!");
                     return;
                 } else if (password_txt.length() < 6) {
@@ -90,12 +92,12 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(first_name.getText().toString())) {
+                if (first_name.getText().toString().isEmpty()) {
                     first_name.setError("First name cannot be empty!");
                     return;
                 }
 
-                if (TextUtils.isEmpty(last_name.getText().toString())) {
+                if (last_name.getText().toString().isEmpty()) {
                     last_name.setError("Last name cannot be empty!");
                     return;
                 }
@@ -119,6 +121,18 @@ public class SignupActivity extends AppCompatActivity {
 
                                     user.updateProfile(profileUpdates);
 
+                                    // add user to database to implement chat functionality
+                                    DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+
+                                    String userId = user.getUid();
+
+                                    Map<String, Object> userHashMap = new HashMap<>();
+                                    userHashMap.put("userId", userId);
+                                    userHashMap.put("timestamp", System.currentTimeMillis());
+                                    userHashMap.put("displayName", fullName); // ?
+
+                                    db.child(userId).setValue(userHashMap);
+
 
                                     Toast.makeText(SignupActivity.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
@@ -128,7 +142,7 @@ public class SignupActivity extends AppCompatActivity {
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(SignupActivity.this, "Authentication failed.",
+                                    Toast.makeText(SignupActivity.this, "Authentication failed",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }

@@ -3,7 +3,6 @@ package com.samsungit.skillswap;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -78,12 +77,12 @@ public class LoginActivity extends AppCompatActivity {
                 email_txt = et_email.getText().toString();
                 password_txt = et_password.getText().toString();
 
-                if (TextUtils.isEmpty(email_txt)) {
+                if (email_txt.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (TextUtils.isEmpty(password_txt)) {
+                if (password_txt.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Password cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }

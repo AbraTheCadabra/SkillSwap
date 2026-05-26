@@ -1,101 +1,114 @@
 package com.samsungit.skillswap.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.samsungit.skillswap.domain.Message;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.samsungit.skillswap.R;
+import com.samsungit.skillswap.domain.Message;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
-// отображение на экран элемента
+import java.util.Locale;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Message> messages;
-    private static final int MY_VH = 0;
-    private static final int OTHER_VH = 1;
-    private Context context;
-    private Fragment fragment;
-    private long currentUserId;
+    List<Message> messages;
 
-    public MessageAdapter(List<Message> messages, Context context, Fragment fragment, long currentUserId) {
+    private final int VIEW_TYPE_MY_MESSAGE = 1;
+    private final int VIEW_TYPE_OTHER_MESSAGE = 2;
+
+    public MessageAdapter(List<Message> messages) {
         this.messages = messages;
-        this.context = context;
-        this.fragment = fragment;
-        this.currentUserId = currentUserId;
     }
 
     @Override
-    public int getItemViewType(int position) { // помогает понять, какой layout использовать
+    public int getItemViewType(int position) {
+
         Message message = messages.get(position);
 
-        if (message.getUserIdSender() == currentUserId) {
-            return MY_VH;
-        }
-        return OTHER_VH;
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        if (message.getSenderId().equals(currentUserId)) {
+            return VIEW_TYPE_MY_MESSAGE;
+        }
+
+        return VIEW_TYPE_OTHER_MESSAGE;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // создание
-        LayoutInflater inflater = LayoutInflater.from(context);
-        if (viewType == MY_VH)
-            return new MyMessageViewHolder(inflater.inflate(R.layout.message_item_my, parent, false));
-        else
-            return new OtherMessageViewHolder(inflater.inflate(R.layout.message_item_other, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_MY_MESSAGE) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_my, parent, false);
+            return new MyMessageViewHolder(view);
+        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_other, parent, false);
+        return new MyMessageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { // отрисовка каждого элемента
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message message = messages.get(position);
-        if (message.getUserIdSender() == currentUserId) {
-            holder = (MyMessageViewHolder) holder;
-            ((MyMessageViewHolder) holder).tvText.setText(message.getText());
-            ((MyMessageViewHolder) holder).tvTime.setText(message.getTimeSent().toString());
+
+        String time = new SimpleDateFormat("HH:mm",
+                Locale.getDefault()).format(new Date(message.getTimestamp()));
+
+        if (holder instanceof MyMessageViewHolder) {
+
+            ((MyMessageViewHolder) holder).messageText.setText(message.getMessage());
+
+            ((MyMessageViewHolder) holder).messageTime.setText(time);
+        } else {
+
+            ((OtherMessageViewHolder) holder).messageText.setText(message.getMessage());
+
+            ((OtherMessageViewHolder) holder).messageTime.setText(time);
         }
-        else {
-            holder = (OtherMessageViewHolder) holder;
-            ((OtherMessageViewHolder) holder).tvText.setText(message.getText());
-            ((OtherMessageViewHolder) holder).tvTime.setText(message.getTimeSent().toString());
-        }
+
     }
 
     @Override
     public int getItemCount() {
-        return messages.size(); // кол-во сообщений всего (берётся из таблицы)
+        return messages.size();
     }
 
-    public void addMessage(Message message) {
-        messages.add(message);
-        notifyItemInserted(messages.size()-1); // добавляет и отрисовывет ещё один элемент
-    }
 
-    class MyMessageViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvText;
-        private TextView tvTime;
-        public MyMessageViewHolder(View item) {
-            super(item);
-            tvText = item.findViewById(R.id.tv_messageElement_text);
-            tvTime = item.findViewById(R.id.tv_messageElement_time);
+    // ??
+    static class MyMessageViewHolder extends RecyclerView.ViewHolder {
+        TextView messageText;
+        TextView messageTime;
+
+        public MyMessageViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            messageText = itemView.findViewById(R.id.tv_messageElement_text);
+
+            messageTime = itemView.findViewById(R.id.tv_messageElement_time);
         }
     }
 
-    class OtherMessageViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvText;
-        private TextView tvTime;
-        public OtherMessageViewHolder(View item) {
-            super(item);
-            tvText = item.findViewById(R.id.tv_messageElement_text_other);
-            tvTime = item.findViewById(R.id.tv_messageElement_time_other);
+    static class OtherMessageViewHolder extends RecyclerView.ViewHolder {
+        TextView messageText;
+        TextView messageTime;
+
+        public OtherMessageViewHolder(
+                @NonNull View itemView) {
+
+            super(itemView);
+
+            messageText = itemView.findViewById(R.id.tv_messageElement_text);
+
+            messageTime = itemView.findViewById(R.id.tv_messageElement_time);
         }
     }
+
 
 }
