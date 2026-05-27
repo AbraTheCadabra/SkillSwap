@@ -13,6 +13,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -112,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // sign up ref
-        TextView signup_ref = findViewById(R.id.sign_up_ref);
+        ConstraintLayout signup_ref = findViewById(R.id.sign_up_ref);
 
         signup_ref.setOnClickListener(new View.OnClickListener() {
             @Override

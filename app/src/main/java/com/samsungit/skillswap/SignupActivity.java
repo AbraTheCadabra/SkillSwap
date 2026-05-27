@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -151,7 +152,7 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         // go to login
-        TextView log_in_ref = findViewById(R.id.login_ref);
+        ConstraintLayout log_in_ref = findViewById(R.id.login_ref);
 
         log_in_ref.setOnClickListener(new View.OnClickListener() {
             @Override

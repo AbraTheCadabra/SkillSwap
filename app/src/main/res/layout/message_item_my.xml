@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -11,7 +13,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/my_msg_clr"
+        android:background="@color/green2"
         >
 
         <TextView
@@ -22,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
 
             />
 
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="00:00"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/tv_messageElement_text"
             app:layout_constraintTop_toBottomOf="@id/tv_messageElement_text"
             />

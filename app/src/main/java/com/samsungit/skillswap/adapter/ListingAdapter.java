@@ -59,7 +59,11 @@ public class ListingAdapter extends ArrayAdapter<Listing> {
 
 
         description.setText(listing.getDescription());
-        name.setText(listing.getOpName());
+
+        if (listing.getOpId().equals(user.getUid()))
+            name.setText(user.getDisplayName() + " (YOU)");
+        else
+            name.setText(listing.getOpName());
         // pfp.setImageResource(listing.getCreator().getPfp()); TODO: implement later
 
         // turn wantToLearn into chips

@@ -7,8 +7,6 @@
     android:orientation="vertical"
     >
 
-    <!-- shove this into list view -->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,21 +57,39 @@
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/button_rounded_green"
         android:text="@string/login"
         android:layout_margin="20dp"/>
 
-
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sign_up_ref"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/don_t_have_an_account_yet_sign_up"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:textColor="@color/green"
-        android:fontFamily="@font/montserrat_bolditalic"
-        />
+        >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="Don't have an account yet? "
+            android:textColor="@color/darkgrey"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bolditalic"
+            android:text="Sign up."
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
