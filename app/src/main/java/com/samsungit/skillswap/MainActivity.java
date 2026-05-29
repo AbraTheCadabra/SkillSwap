@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -45,14 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        // listings fragment: show all listings
-
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
     }
 
-    // private void setupListingData() { Listing listing = new Listing(1, new User(1, "User", "John Doe"), "Need help with learning how to cook"); listings.add(listing); Listing listing2 = new Listing(2, new User(1, "User", "Jane Doe"), "Need help with programming"); listings.add(listing2); Listing listing3 = new Listing(2, new User(1, "User", "Jane Doe"), "Need help with house chores"); listings.add(listing3); }
-    // private void setupList() { listView = findViewById(R.id.listings_list_view); ListingAdapter adapter = new ListingAdapter(getApplicationContext(), 0, listings); listView.setAdapter(adapter); }
 }
 
 

@@ -1,6 +1,8 @@
 package com.samsungit.skillswap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -148,9 +150,17 @@ public class AccountFragment extends Fragment {
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                startActivity(intent);
+                new AlertDialog.Builder(getContext()).setTitle("Confirm action").setMessage("Are you sure you want to Log Out?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                                startActivity(intent);
+                                requireActivity().finish();
+                            }
+                        }).setNegativeButton("No", null).show();
+
             }
         });
 

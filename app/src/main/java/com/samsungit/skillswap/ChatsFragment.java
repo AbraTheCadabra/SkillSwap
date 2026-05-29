@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +40,18 @@ public class ChatsFragment extends Fragment {
         chatList = new ArrayList<>();
 
         adapter = new ChatsAdapter(getContext(), chatList);
+
+        TextView emptyView = view.findViewById(R.id.emptyView);
+        
+        recyclerView.setAdapter(adapter);
+
+        if (chatList.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
 
         recyclerView.setAdapter(adapter);
 

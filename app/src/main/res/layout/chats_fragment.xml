@@ -10,6 +10,7 @@
     >
 
     <TextView
+        android:id="@+id/chats_page_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chats"
@@ -17,6 +18,18 @@
         android:fontFamily="@font/montserrat_bold"
         android:layout_margin="5dp"
         />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_here_yet"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/darkgrey"
+        android:fontFamily="@font/montserrat_bolditalic"
+        app:layout_constraintTop_toBottomOf="@id/chats_page_name"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chats_rec"

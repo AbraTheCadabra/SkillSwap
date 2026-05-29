@@ -36,19 +36,32 @@
 
     </GridLayout>
 
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bolditalic"
+        android:gravity="center"
+        android:text="@string/nothing_here_yet"
+        android:textColor="@color/darkgrey"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/create_listing_btn"
+        tools:layout_editor_absoluteX="10dp"
+        android:visibility="gone"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/create_listing_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:background="@drawable/button_rounded_green"
         android:fontFamily="@font/montserrat_bold"
         android:text="CREATE NEW LISTING"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/my_listings_grid"
-        android:layout_marginVertical="10dp"
 
-         />
+        tools:layout_editor_absoluteX="10dp" />
 
     <ListView
         android:id="@+id/my_listings_list"

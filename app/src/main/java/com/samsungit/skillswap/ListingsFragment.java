@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,38 +30,37 @@ import java.util.List;
 
 public class ListingsFragment extends Fragment {
     private ListView listView;
-    public static List<Listing> listings = new ArrayList<>();
+    public List<Listing> listings = new ArrayList<>();
     Firebase myFirebase;
     private ListingAdapter adapter;
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        listings.clear();
 
         View view = inflater.inflate(R.layout.listings_fragment, container, false);
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("listings");
 
-        listings.clear();
 
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Listing listing = snapshot.getValue(Listing.class);
-                if (listing != null) {
+                if (listing == null) return;
 
-                    String uid = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String uid = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                    // skip your own listings
-                    if (listing.getOpId() != null && listing.getOpId().equals(uid)) {
-                        return;
-                    }
-
-                    listings.add(listing);
-                    adapter.notifyDataSetChanged();
+                // skip your own listings
+                if (listing.getOpId() != null && listing.getOpId().equals(uid)) {
+                    return;
                 }
+
+                listings.add(listing);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -85,7 +85,7 @@ public class ListingsFragment extends Fragment {
 
                 // remove the listing from the list
                 for (int i = 0; i < listings.size(); i++) {
-                    if (listings.get(i).getId() == removedListing.getId()) {
+                    if (listings.get(i).getId().equals(removedListing.getId())) {
                         listings.remove(i);
                         adapter.notifyDataSetChanged();
                         break;
@@ -113,24 +113,14 @@ public class ListingsFragment extends Fragment {
     private void setUpList(View view) {
         listView = view.findViewById(R.id.listings_list_view);
 
+        TextView emptyView = view.findViewById(R.id.emptyView);
+
+        listView.setEmptyView(emptyView);
+
         adapter = new ListingAdapter(getContext(), 1, listings);
 
         listView.setAdapter(adapter);
 
 
-    }
-
-    private void setUpOnClickListener() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Listing selectedListing = (Listing) (listView.getItemAtPosition(position));
-
-                Intent showDetail = new Intent(getContext(), ListingDetail.class);
-                showDetail.putExtra("id", position);
-
-                startActivity(showDetail);
-            }
-        });
     }
 }

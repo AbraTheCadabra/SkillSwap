@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -135,6 +136,10 @@ public class MyListingsFragment extends Fragment {
         myListings = view.findViewById(R.id.my_listings_list);
 
         adapter = new EditListingAdapter(getContext(), 1, my_listings);
+
+        TextView emptyView = view.findViewById(R.id.emptyView);
+
+        myListings.setEmptyView(emptyView);
 
         myListings.setAdapter(adapter);
 

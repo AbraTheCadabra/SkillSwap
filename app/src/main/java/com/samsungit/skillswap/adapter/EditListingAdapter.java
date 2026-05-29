@@ -1,6 +1,9 @@
 package com.samsungit.skillswap.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.samsungit.skillswap.LoginActivity;
 import com.samsungit.skillswap.R;
 import com.samsungit.skillswap.domain.Chatroom;
 import com.samsungit.skillswap.domain.Listing;
@@ -81,30 +85,36 @@ public class EditListingAdapter extends ArrayAdapter<Listing> {
 
         // delete listing button
         deleteBtn.setOnClickListener(v -> {
+            new AlertDialog.Builder(getContext()).setTitle("Confirm action").setMessage("Are you sure you want to Delete this Listing?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String listingId = String.valueOf(listing.getId());
 
-            String listingId = String.valueOf(listing.getId());
+                            ref.removeValue().addOnSuccessListener(unused -> {
 
-            ref.removeValue().addOnSuccessListener(unused -> {
+                                // loop through all of the chatrooms, find the ones with the listing id and delete them
+                                DatabaseReference refChatrooms = FirebaseDatabase.getInstance().getReference("chatrooms");
+                                refChatrooms.get().addOnSuccessListener(dataSnapshot -> {
+                                    for (DataSnapshot chatSnapshot : dataSnapshot.getChildren()) {
+                                        String chatroomId = chatSnapshot.getKey();
 
-                // loop through all of the chatrooms, find the ones with the listing id and delete them
-                DatabaseReference refChatrooms = FirebaseDatabase.getInstance().getReference("chatrooms");
-                refChatrooms.get().addOnSuccessListener(dataSnapshot -> {
-                    for (DataSnapshot chatSnapshot : dataSnapshot.getChildren()) {
-                        String chatroomId = chatSnapshot.getKey();
+                                        if(chatroomId.contains(listingId)) {
+                                            chatSnapshot.getRef().removeValue();
+                                        }
+                                    }
+                                });
 
-                        if(chatroomId.contains(listingId)) {
-                            chatSnapshot.getRef().removeValue();
+                                remove(listing);
+                                notifyDataSetChanged();
+
+                                Toast.makeText(getContext(), "Listing deleted", Toast.LENGTH_SHORT).show();
+                            }).addOnFailureListener(e -> {
+                                Toast.makeText(getContext(), "Delete failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            });
                         }
-                    }
-                });
+                    }).setNegativeButton("No", null).show();
 
-                remove(listing);
-                notifyDataSetChanged();
-
-                Toast.makeText(getContext(), "Listing deleted", Toast.LENGTH_SHORT).show();
-            }).addOnFailureListener(e -> {
-                Toast.makeText(getContext(), "Delete failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            });
         });
 
 
