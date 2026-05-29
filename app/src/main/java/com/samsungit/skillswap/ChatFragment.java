@@ -1,12 +1,15 @@
 package com.samsungit.skillswap;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,6 +54,8 @@ public class ChatFragment extends Fragment {
     ImageButton backBtn;
     RecyclerView recyclerView;
 
+    ImageView profilePic;
+
     List<Message> messageList;
     MessageAdapter adapter;
 
@@ -66,6 +72,7 @@ public class ChatFragment extends Fragment {
         sendBtn = view.findViewById(R.id.send_btn);
         backBtn = view.findViewById(R.id.back_btn);
         recyclerView = view.findViewById(R.id.chat_rec);
+        profilePic = view.findViewById(R.id.profile_pic);
 
         messageList = new ArrayList<>();
         adapter = new MessageAdapter(messageList);
@@ -86,6 +93,24 @@ public class ChatFragment extends Fragment {
         dbChat = FirebaseDatabase.getInstance().getReference("chatrooms").child(chatroomId);
 
         loadMessages();
+
+        // load pfp
+        // profile picture
+        FirebaseDatabase.getInstance().getReference("users").child(opId).child("profilePic").get().addOnSuccessListener(dataSnapshot -> {
+            String base64 = dataSnapshot.getValue(String.class);
+
+            if (base64 != null) {
+                byte[] decoded = android.util.Base64.decode(base64, Base64.DEFAULT);
+
+                Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+
+                Glide.with(getContext()).load(bitmap).circleCrop().into(profilePic);
+            }
+            else {
+               profilePic.setImageResource(R.drawable.def_profile);
+            }
+        });
+
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,8 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 public class Listing {
-    private long id;
-    // private User creator;
+    private String id;
     private String opId; // id of firebase user
     private String description;
     private List<String> canTeach;
@@ -17,31 +16,54 @@ public class Listing {
     private String opName;
     private long timestamp;
 
-//    public Listing(long id, User creator, String description) {
-//        this.id = id;
-//        this.creator = creator;
-//        Description = description;
-//    }
 
-
-    public Listing(String opId, String description, List<String> canTeach, List<String> wantToLearn, long timestamp, String opName) {
-        this.id = 0;
+    public Listing(String id, String opId, String description, List<String> canTeach, List<String> wantToLearn, String opName, long timestamp) {
+        this.id = id;
         this.opId = opId;
         this.description = description;
         this.canTeach = canTeach;
         this.wantToLearn = wantToLearn;
-        this.timestamp = timestamp;
         this.opName = opName;
+        this.timestamp = timestamp;
     }
 
     public Listing() {
     }
 
-    public long getId() {
+
+    public void setOpId(String opId) {
+        this.opId = opId;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCanTeach(List<String> canTeach) {
+        this.canTeach = canTeach;
+    }
+
+    public void setWantToLearn(List<String> wantToLearn) {
+        this.wantToLearn = wantToLearn;
+    }
+
+    public void setOpName(String opName) {
+        this.opName = opName;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getId() {
         return id;
     }
 
-//    public User getCreator() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    //    public User getCreator() {
 //        return creator;
 //    }
 

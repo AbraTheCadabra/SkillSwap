@@ -2,6 +2,8 @@ package com.samsungit.skillswap.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.Timestamp;
@@ -28,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.samsungit.skillswap.ChatFragment;
 import com.samsungit.skillswap.R;
 import com.samsungit.skillswap.domain.Listing;
-import com.thoughtworks.xstream.XStream;
 
 import org.w3c.dom.Text;
 
@@ -56,15 +58,32 @@ public class ListingAdapter extends ArrayAdapter<Listing> {
         }
         TextView description = (TextView) convertView.findViewById(R.id.cell_description);
         TextView name = (TextView) convertView.findViewById(R.id.lis_profile_name);
+        ImageView profilePic = convertView.findViewById(R.id.profile_pic);
 
+        // load profile picture
+        String userId = listing.getOpId();
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(userId).child("profilePic");
+
+        ref.get().addOnSuccessListener(snapshot -> {
+
+            String base64 = snapshot.getValue(String.class);
+
+            if (base64 != null) {
+                byte[] decoded = android.util.Base64.decode(base64, android.util.Base64.DEFAULT);
+
+                Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+
+                Glide.with(getContext()).load(bitmap).circleCrop().into(profilePic);
+            } else {
+                profilePic.setImageResource(R.drawable.def_profile);
+            }
+        });
 
         description.setText(listing.getDescription());
 
-        if (listing.getOpId().equals(user.getUid()))
-            name.setText(user.getDisplayName() + " (YOU)");
-        else
-            name.setText(listing.getOpName());
-        // pfp.setImageResource(listing.getCreator().getPfp()); TODO: implement later
+        name.setText(listing.getOpName());
 
         // turn wantToLearn into chips
         ChipGroup chipGroup = convertView.findViewById(R.id.want_to_learn_chip_group);
@@ -109,15 +128,9 @@ public class ListingAdapter extends ArrayAdapter<Listing> {
                 // generate chatroom id while making sure that we don't create a new chatroom on accident
                 String chatroomId;
                 if (user.getUid().compareTo(opId) < 0) {
-                    chatroomId = user.getUid() + "_" + opId;
+                    chatroomId = user.getUid() + "_" + opId + "_" + listing.getId();
                 } else {
-                    chatroomId = opId + "_" + user.getUid();
-                }
-
-                // make sure that the user doesn't create a chat with themselves
-                if (user.getUid().equals(opId)) {
-                    Toast.makeText(getContext(), "ERROR: CANNOT MAKE A CHAT WITH YOURSELF", Toast.LENGTH_SHORT).show();
-                    return;
+                    chatroomId = opId + "_" + user.getUid() + "_" + listing.getId();
                 }
 
                 DatabaseReference chatroomsRef = FirebaseDatabase.getInstance().getReference("chatrooms");
@@ -162,6 +175,7 @@ public class ListingAdapter extends ArrayAdapter<Listing> {
                 navController.navigate(R.id.chatFragment, bundle);
             }
         });
+
 
         return convertView;
 

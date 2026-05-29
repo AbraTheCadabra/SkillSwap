@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp">
+        tools:layout_editor_absoluteX="10dp"
+
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/lis_profile_pic"
@@ -28,9 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/def_profile"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/def_profile" />
         </androidx.cardview.widget.CardView>
 
 
@@ -65,10 +65,10 @@
             android:id="@+id/gridLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
             android:background="@drawable/listing_skill_rounded"
             android:columnCount="3"
             android:rowCount="1"
+            android:layout_marginVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,16 +95,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/can_teach_title">
+                    app:layout_constraintTop_toBottomOf="@id/can_teach_title"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/can_teach_chip_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:singleLine="false"
                         app:chipSpacing="2dp"
-                        app:chipSpacingVertical="2dp"
-                        app:singleLine="false" />
+                        app:chipSpacingVertical="2dp" />
 
                 </androidx.core.widget.NestedScrollView>
 
@@ -137,16 +137,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/want_learn_title">
+                    app:layout_constraintTop_toBottomOf="@id/want_learn_title"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/want_to_learn_chip_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:singleLine="false"
                         app:chipSpacing="2dp"
-                        app:chipSpacingVertical="2dp"
-                        app:singleLine="false" />
+                        app:chipSpacingVertical="2dp" />
 
                 </androidx.core.widget.NestedScrollView>
 
@@ -156,14 +156,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/respond_btn"
-        android:layout_width="match_parent"
+        android:id="@+id/delete_listing_btn"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded_green"
-        android:text="RESPOND"
-        android:textSize="24sp"
+        android:background="@drawable/button_rounded_red"
+        android:text="DELETE LISTING"
         android:textColor="@color/grey"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="10dp" />
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

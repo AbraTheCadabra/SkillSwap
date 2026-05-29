@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.samsungit.skillswap.adapter.EditListingAdapter;
 import com.samsungit.skillswap.adapter.ListingAdapter;
 import com.samsungit.skillswap.domain.Listing;
 
@@ -31,7 +33,8 @@ public class MyListingsFragment extends Fragment {
     public static List<Listing> listings = new ArrayList<>();
     ListView myListings;
     AppCompatButton createNewListingBtn;
-    private ListingAdapter adapter;
+    ImageButton backBtn;
+    private EditListingAdapter adapter;
     FirebaseAuth mAuth;
     public List<Listing> my_listings = new ArrayList<>();
 
@@ -39,6 +42,7 @@ public class MyListingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.my_listings_fragment, container, false);
 
         myListings = view.findViewById(R.id.my_listings_list);
+        backBtn = view.findViewById(R.id.create_listing_back_btn);
 
         my_listings.clear();
 
@@ -46,13 +50,22 @@ public class MyListingsFragment extends Fragment {
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 Listing listing = snapshot.getValue(Listing.class);
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                if (listing != null && listing.getOpId().equals(user.getUid())) {
-                    my_listings.add(listing);
-                    adapter.notifyDataSetChanged();
+                if (listing != null) {
+
+                    // IMPORTANT
+                    listing.setId(snapshot.getKey());
+
+                    if (listing.getOpId().equals(user.getUid())) {
+
+                        my_listings.add(listing);
+
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -107,13 +120,21 @@ public class MyListingsFragment extends Fragment {
 
         setUpList(view);
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigate(R.id.nav_account);
+            }
+        });
+
         return view;
     }
 
     private void setUpList(View view) {
         myListings = view.findViewById(R.id.my_listings_list);
 
-        adapter = new ListingAdapter(getContext(), 1, my_listings);
+        adapter = new EditListingAdapter(getContext(), 1, my_listings);
 
         myListings.setAdapter(adapter);
 

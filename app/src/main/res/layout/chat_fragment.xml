@@ -9,7 +9,7 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green"
+        android:background="@color/grey"
         android:padding="5dp"
         android:id="@+id/chatTop"
         android:layout_alignParentTop="true"
@@ -26,6 +26,7 @@
             />
 
         <ImageView
+            android:id="@id/profile_pic"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:src="@drawable/def_profile"
@@ -91,7 +92,7 @@
             android:id="@+id/send_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/baseline_arrow_forward_ios_24"
+            android:src="@drawable/baseline_send_24"
             android:layout_centerInParent="true"
             android:layout_alignParentEnd="true"
             android:padding="8dp"

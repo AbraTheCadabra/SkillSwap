@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class CreateListingFragment extends Fragment {
 
     AppCompatButton createNewListingBtn;
+    ImageButton backBtn;
     EditText wantInput, teachInput, descriptionInput;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +40,7 @@ public class CreateListingFragment extends Fragment {
         wantInput = view.findViewById(R.id.want_to_learn_et);
         teachInput = view.findViewById(R.id.can_teach_et);
         descriptionInput = view.findViewById(R.id.listing_description_et);
+        backBtn = view.findViewById(R.id.create_listing_back_btn);
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("listings");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -55,12 +58,11 @@ public class CreateListingFragment extends Fragment {
 
             Map<String, Object> listing = new HashMap<>();
             listing.put("opId", user.getUid()); // OP = original poster
-
             listing.put("wantToLearn", wantToLearn);
             listing.put("canTeach", canTeach);
             listing.put("timestamp", System.currentTimeMillis());
             listing.put("description", descriptionText);
-
+            listing.put("id", id);
             listing.put("opName", user.getDisplayName());
 
 
@@ -69,10 +71,16 @@ public class CreateListingFragment extends Fragment {
             Toast.makeText(view.getContext(), "Listing created successfully!", Toast.LENGTH_LONG).show();
 
             NavController navController = Navigation.findNavController(requireView());
-            navController.popBackStack(); // go back to Listings
+            navController.navigate(R.id.myListingsFragment);
         });
 
-
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigate(R.id.myListingsFragment);
+            }
+        });
 
         return view;
     }

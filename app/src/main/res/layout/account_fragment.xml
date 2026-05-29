@@ -15,13 +15,40 @@
         android:layout_margin="5dp"
         />
 
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:clipToOutline="true"
+        android:background="@drawable/circle_shape"
+        android:layout_margin="12dp"
+
+        >
+
     <ImageView
         android:id="@+id/profile_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/def_profile"
-        android:layout_gravity="center"
-        android:layout_margin="12dp" />
+        android:layout_gravity="center" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#99000000"
+            android:layout_above="@id/profile_pic"
+            android:layout_alignBottom="@id/profile_pic"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/camera"
+                />
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/user_name"
@@ -44,34 +71,34 @@
         android:textSize="16dp"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/profile_btn"
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
-        android:text="Profile"
-        android:gravity="center"
-        android:layout_marginVertical="5dp"
-        android:layout_marginHorizontal="10dp"
-        android:drawableLeft="@drawable/account_icon"
-        android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
-        android:textColor="@color/btn_font"
-        android:fontFamily="@font/montserrat_bold" />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/profile_btn"-->
+<!--        android:padding="5dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/button_rounded_green"-->
+<!--        android:text="Profile"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginVertical="5dp"-->
+<!--        android:layout_marginHorizontal="10dp"-->
+<!--        android:drawableLeft="@drawable/account_icon"-->
+<!--        android:drawableRight="@drawable/baseline_arrow_forward_ios_24"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:fontFamily="@font/montserrat_bold" />-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/my_listings_btn"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/button_rounded_green"
         android:text="My Listings"
         android:gravity="center"
         android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="10dp"
         android:drawableLeft="@drawable/star_icon"
         android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
-        android:textColor="@color/btn_font"
+        android:textColor="@color/white"
         android:fontFamily="@font/montserrat_bold" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -79,14 +106,14 @@
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/button_rounded_green"
         android:text="Settings"
         android:gravity="center"
         android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="10dp"
         android:drawableLeft="@drawable/settings_icon"
         android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
-        android:textColor="@color/btn_font"
+        android:textColor="@color/white"
         android:fontFamily="@font/montserrat_bold" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -94,14 +121,14 @@
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/button_rounded_green"
         android:text="Help and Support"
         android:gravity="center"
         android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="10dp"
         android:drawableLeft="@drawable/support_icon"
         android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
-        android:textColor="@color/btn_font"
+        android:textColor="@color/white"
         android:fontFamily="@font/montserrat_bold" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -109,14 +136,14 @@
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/button_rounded_green"
         android:text="Log Out"
         android:gravity="center"
         android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="10dp"
         android:drawableLeft="@drawable/account_icon"
         android:drawableRight="@drawable/baseline_arrow_forward_ios_24"
-        android:textColor="@color/btn_font"
+        android:textColor="@color/white"
         android:fontFamily="@font/montserrat_bold" />
 
 

@@ -7,27 +7,45 @@
     android:padding="10dp"
     >
 
-
-    <TextView
-        android:id="@+id/create_new_listing_text"
+    <GridLayout
+        android:id="@+id/create_new_listing_text_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create New Listing"
-        android:textSize="24sp"
-        android:fontFamily="@font/montserrat_bold"
-        android:layout_margin="5dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/create_listing_back_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/create_new_listing_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="2"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Create New Listing"
+            android:textSize="24sp" />
+
+    </GridLayout>
 
     <EditText
         android:id="@+id/listing_description_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Listing Description"
+        android:inputType="text"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@id/create_new_listing_text"
+        app:layout_constraintTop_toBottomOf="@id/create_new_listing_text_holder"
         />
 
     <EditText
+        android:inputType="text"
         android:id="@+id/want_to_learn_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +55,7 @@
         />
 
     <EditText
+        android:inputType="text"
         android:id="@+id/can_teach_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,8 +71,11 @@
         app:layout_constraintTop_toBottomOf="@+id/can_teach_et"
         tools:layout_editor_absoluteX="10dp"
         android:layout_margin="10dp"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/button_rounded_green"
         android:text="CREATE NEW LISTING"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserrat_bold"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

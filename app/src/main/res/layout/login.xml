@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_rounded_green"
         android:text="@string/login"
+        android:textColor="@color/white"
         android:layout_margin="20dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout

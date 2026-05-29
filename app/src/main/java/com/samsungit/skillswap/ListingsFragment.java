@@ -50,6 +50,14 @@ public class ListingsFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Listing listing = snapshot.getValue(Listing.class);
                 if (listing != null) {
+
+                    String uid = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    // skip your own listings
+                    if (listing.getOpId() != null && listing.getOpId().equals(uid)) {
+                        return;
+                    }
+
                     listings.add(listing);
                     adapter.notifyDataSetChanged();
                 }
@@ -96,26 +104,11 @@ public class ListingsFragment extends Fragment {
             }
         });
 
-
-
-        // setUpListingData();
         setUpList(view);
-        // setUpOnClickListener();
+
 
         return view;
     }
-
-//    private void setUpListingData() {
-//        listings.add(new Listing(1, new User(1, "User", "John Doe"),
-//                "Need help with cooking"));
-//
-//        listings.add(new Listing(2, new User(2, "User", "Jane Doe"),
-//                "Need help with programming"));
-//        listings.add(new Listing(3, new User(3, "User", "Jane Doe"),
-//                "Need help with programming"));
-//        listings.add(new Listing(4, new User(4, "User", "Jane Doe"),
-//                "Need help with programming"));
-//    }
 
     private void setUpList(View view) {
         listView = view.findViewById(R.id.listings_list_view);

@@ -8,18 +8,18 @@ public class Chatroom {
     private String chatroomId;
     private Map<String, Boolean> users; // ?
     private Map<String, Message> messages;
-    private String lastMessageSent;
-    private String lastMessageSenderId;
+    private String lastMessage;
+    private String lastMessageSender;
 
     public Chatroom() {
     }
 
-    public Chatroom(String chatroomId, Map<String, Boolean> users, Map<String, Message> messages, String lastMessageSent, String lastMessageSenderId) {
+    public Chatroom(String chatroomId, Map<String, Boolean> users, Map<String, Message> messages, String lastMessage, String lastMessageSender) {
         this.chatroomId = chatroomId;
         this.users = users;
         this.messages = messages;
-        this.lastMessageSent = lastMessageSent;
-        this.lastMessageSenderId = lastMessageSenderId;
+        this.lastMessage = lastMessage;
+        this.lastMessageSender = lastMessageSender;
     }
 
     public Map<String, Boolean> getUsers() {
@@ -47,19 +47,19 @@ public class Chatroom {
         this.messages = messages;
     }
 
-    public String getLastMessageSent() {
-        return lastMessageSent;
+    public String getLastMessage() {
+        return lastMessage;
     }
 
-    public void setLastMessageSent(String lastMessageSent) {
-        this.lastMessageSent = lastMessageSent;
+    public void setLastMessage(String lastMessageSent) {
+        this.lastMessage = lastMessageSent;
     }
 
-    public String getLastMessageSenderId() {
-        return lastMessageSenderId;
+    public String getLastMessageSender() {
+        return lastMessageSender;
     }
 
     public void setLastMessageSenderId(String lastMessageSenderId) {
-        this.lastMessageSenderId = lastMessageSenderId;
+        this.lastMessageSender = lastMessageSenderId;
     }
 }
